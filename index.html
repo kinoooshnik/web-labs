@@ -6,174 +6,195 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-<header class="section-header-first">
+<header class="container section-header-first">
     <h1 class="header-title">Погода здесь</h1>
     <button class="header-refresh-button">Обновить геолокацию</button>
     <div class="empty"></div>
 </header>
-<section class="main-city">
-    <div class="basic-information">
-        <h2 class="city-name main-city-name">Saint Petersburg</h2>
-        <div class="icon-and-temp">
-            <img class="weather-icon main-weather-icon" src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png">
-            <div class="temperature main-temperature">8°C</div>
-        </div>
-    </div>
-    <div class="additional-information">
-        <div class="additional-information-block">
-            <div class="additional-information-block-title">Ветер</div>
-            <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
-        </div>
-        <div class="additional-information-block">
-            <div class="additional-information-block-title">Облачность</div>
-            <div class="additional-information-block-value">Broken clouds</div>
-        </div>
-        <div class="additional-information-block">
-            <div class="additional-information-block-title">Давление</div>
-            <div class="additional-information-block-value">1013 hpa</div>
-        </div>
-        <div class="additional-information-block">
-            <div class="additional-information-block-title">Влажность</div>
-            <div class="additional-information-block-value">52%</div>
-        </div>
-        <div class="additional-information-block">
-            <div class="additional-information-block-title">Координаты</div>
-            <div class="additional-information-block-value">[59.88, 30.42]</div>
-        </div>
-    </div>
-</section>
-<header class="section-header-second">
-    <h1 class="header-title">Избранное</h1>
-    <div class="new-city-form">
-        <input class="new-city-input" type="text" placeholder="Добавить новый город">
-        <div class="circle-button plus-button"></div>
-    </div>
-</header>
-<div class="selected-cities">
-    <section class="selected-city">
-        <div class="selected-city-basic-information">
-            <h2 class="city-name">Moscow</h2>
-            <div class="temperature">5°C</div>
-            <img class="weather-icon" src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png">
-            <div class="circle-button close-button"></div>
-        </div>
-        <div class="additional-information">
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Ветер</div>
-                <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
-            </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Облачность</div>
-                <div class="additional-information-block-value">Broken clouds</div>
-            </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Давление</div>
-                <div class="additional-information-block-value">1013 hpa</div>
-            </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Влажность</div>
-                <div class="additional-information-block-value">52%</div>
-            </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Координаты</div>
-                <div class="additional-information-block-value">[59.88, 30.42]</div>
-            </div>
-        </div>
-    </section>
 
-    <section class="selected-city">
-        <div class="selected-city-basic-information">
-            <h2 class="city-name">Helsinki</h2>
-            <div class="temperature">3°C</div>
-            <img class="weather-icon" src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png">
-            <div class="circle-button close-button"></div>
+<main class="container">
+    <section class="main-city">
+        <div class="basic-information">
+            <h3 class="city-name main-city-name">Saint Petersburg</h3>
+            <div class="icon-and-temp">
+                <img class="weather-icon main-weather-icon"
+                     src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png"
+                     alt="Иконка погоды">
+                <div class="temperature main-temperature">8°C</div>
+            </div>
         </div>
-        <div class="additional-information">
-            <div class="additional-information-block">
+        <ul class="additional-information">
+            <li class="additional-information-block">
                 <div class="additional-information-block-title">Ветер</div>
                 <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
-            </div>
-            <div class="additional-information-block">
+            </li>
+            <li class="additional-information-block">
                 <div class="additional-information-block-title">Облачность</div>
                 <div class="additional-information-block-value">Broken clouds</div>
-            </div>
-            <div class="additional-information-block">
+            </li>
+            <li class="additional-information-block">
                 <div class="additional-information-block-title">Давление</div>
                 <div class="additional-information-block-value">1013 hpa</div>
-            </div>
-            <div class="additional-information-block">
+            </li>
+            <li class="additional-information-block">
                 <div class="additional-information-block-title">Влажность</div>
                 <div class="additional-information-block-value">52%</div>
-            </div>
-            <div class="additional-information-block">
+            </li>
+            <li class="additional-information-block">
                 <div class="additional-information-block-title">Координаты</div>
                 <div class="additional-information-block-value">[59.88, 30.42]</div>
-            </div>
-        </div>
+            </li>
+        </ul>
     </section>
-    <section class="selected-city">
-        <div class="selected-city-basic-information">
-            <h2 class="city-name">Moscow</h2>
-            <div class="temperature">5°C</div>
-            <img class="weather-icon" src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png">
-            <div class="circle-button close-button"></div>
+    <div class="section-header-second">
+        <h2 class="header-title">Избранное</h2>
+        <div class="new-city-form">
+            <input class="new-city-input" type="text" placeholder="Добавить новый город">
+            <button class="circle-button plus-button">
+                <span>+</span>
+            </button>
         </div>
-        <div class="additional-information">
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Ветер</div>
-                <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
+    </div>
+    <div class="selected-cities">
+        <section class="selected-city">
+            <div class="selected-city-basic-information">
+                <h3 class="city-name">Moscow</h3>
+                <div class="temperature">5°C</div>
+                <img class="weather-icon"
+                     src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png"
+                     alt="Иконка погоды">
+                <button class="circle-button close-button">
+                    <span>×</span>
+                </button>
             </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Облачность</div>
-                <div class="additional-information-block-value">Broken clouds</div>
-            </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Давление</div>
-                <div class="additional-information-block-value">1013 hpa</div>
-            </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Влажность</div>
-                <div class="additional-information-block-value">52%</div>
-            </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Координаты</div>
-                <div class="additional-information-block-value">[59.88, 30.42]</div>
-            </div>
-        </div>
-    </section>
+            <ul class="additional-information">
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Ветер</div>
+                    <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Облачность</div>
+                    <div class="additional-information-block-value">Broken clouds</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Давление</div>
+                    <div class="additional-information-block-value">1013 hpa</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Влажность</div>
+                    <div class="additional-information-block-value">52%</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Координаты</div>
+                    <div class="additional-information-block-value">[59.88, 30.42]</div>
+                </li>
+            </ul>
+        </section>
 
-    <section class="selected-city">
-        <div class="selected-city-basic-information">
-            <h2 class="city-name">Helsinki</h2>
-            <div class="temperature">3°C</div>
-            <img class="weather-icon" src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png">
-            <div class="circle-button close-button"></div>
-        </div>
-        <div class="additional-information">
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Ветер</div>
-                <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
+        <section class="selected-city">
+            <div class="selected-city-basic-information">
+                <h2 class="city-name">Helsinki</h2>
+                <div class="temperature">3°C</div>
+                <img class="weather-icon"
+                     src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png"
+                     alt="Иконка погоды">
+                <button class="circle-button close-button">
+                    <span>×</span>
+                </button>
             </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Облачность</div>
-                <div class="additional-information-block-value">Broken clouds</div>
+            <ul class="additional-information">
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Ветер</div>
+                    <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Облачность</div>
+                    <div class="additional-information-block-value">Broken clouds</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Давление</div>
+                    <div class="additional-information-block-value">1013 hpa</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Влажность</div>
+                    <div class="additional-information-block-value">52%</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Координаты</div>
+                    <div class="additional-information-block-value">[59.88, 30.42]</div>
+                </li>
+            </ul>
+        </section>
+        <section class="selected-city">
+            <div class="selected-city-basic-information">
+                <h2 class="city-name">Moscow</h2>
+                <div class="temperature">5°C</div>
+                <img class="weather-icon"
+                     src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png"
+                     alt="Иконка погоды">
+                <button class="circle-button close-button">
+                    <span>×</span>
+                </button>
             </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Давление</div>
-                <div class="additional-information-block-value">1013 hpa</div>
+            <ul class="additional-information">
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Ветер</div>
+                    <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Облачность</div>
+                    <div class="additional-information-block-value">Broken clouds</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Давление</div>
+                    <div class="additional-information-block-value">1013 hpa</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Влажность</div>
+                    <div class="additional-information-block-value">52%</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Координаты</div>
+                    <div class="additional-information-block-value">[59.88, 30.42]</div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="selected-city">
+            <div class="selected-city-basic-information">
+                <h2 class="city-name">Helsinki</h2>
+                <div class="temperature">3°C</div>
+                <img class="weather-icon"
+                     src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/weather-icon.png"
+                     alt="Иконка погоды">
+                <button class="circle-button close-button">
+                    <span>×</span>
+                </button>
             </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Влажность</div>
-                <div class="additional-information-block-value">52%</div>
-            </div>
-            <div class="additional-information-block">
-                <div class="additional-information-block-title">Координаты</div>
-                <div class="additional-information-block-value">[59.88, 30.42]</div>
-            </div>
-        </div>
-    </section>
-</div>
-</div>
+            <ul class="additional-information">
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Ветер</div>
+                    <div class="additional-information-block-value">Moderate breeze, 6.0 m/s, North-northwest</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Облачность</div>
+                    <div class="additional-information-block-value">Broken clouds</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Давление</div>
+                    <div class="additional-information-block-value">1013 hpa</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Влажность</div>
+                    <div class="additional-information-block-value">52%</div>
+                </li>
+                <li class="additional-information-block">
+                    <div class="additional-information-block-title">Координаты</div>
+                    <div class="additional-information-block-value">[59.88, 30.42]</div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</main>
 </body>
 </html>
