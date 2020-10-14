@@ -1,0 +1,131 @@
+.container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1000px;
+}
+.section-header-first {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "header-title header-refresh-button empty";
+    margin: 20px 0;
+}
+.section-header-second {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "header-title new-city-form";
+    margin: 20px 0;
+}
+.header-title {
+    font-weight: normal;
+    margin: 0;
+    grid-area: header-title;
+    color: rgb(118, 132, 136);
+}
+.header-refresh-button {
+    grid-area: header-refresh-button;
+    margin: 0 auto;
+    width: 220px;
+    font-size: 1em;
+    color: rgb(136, 145, 151);
+    background-color: rgb(203, 210, 215);
+    border: none;
+    border-radius: 5px;
+}
+.empty {
+    grid-area: empty;
+}
+.new-city-form {
+    grid-area: new-city-form;
+    display: flex;
+    justify-content: flex-end;
+}
+.new-city-input {
+    width: 250px;
+}
+.main-city {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between;
+}
+.basic-information {
+    width: 45%;
+}
+.selected-cities {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.selected-city {
+    width: 45%;
+}
+.icon-and-temp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.city-name {
+    font-weight: bold;
+    font-size: 1.8em;
+    margin: 5px;
+    color: rgb(115, 128, 133);
+}
+.main-city-name {
+    font-size: 2.8em;
+}
+.weather-icon {
+    width: 25px;
+    height: 25px;
+    /*border: 2px solid rgb(115, 128, 133);*/
+}
+.main-weather-icon {
+    width: 100px;
+    height: 100px;
+}
+.temperature {
+    font-size: 1.9em;
+    margin: 5px;
+    color: rgb(124, 124, 124);
+}
+.main-temperature {
+    font-size: 100px;
+}
+.circle-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: rgb(115, 129, 136);
+    margin: auto 0 auto 60px;
+}
+
+.plus-button {
+    margin: auto 0 auto 5px;
+}
+.selected-city-basic-information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-city .additional-information {
+    width: 45%;
+}
+.additional-information {
+     width: 100%;
+}
+.additional-information-block {
+    background-color: rgb(169, 175, 176);
+    margin: 5px 0 5px 0;
+    padding: 5px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+.additional-information-block-title {
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 1080px) {
+    body{
+        background-color: white;
+    }
+}
