@@ -222,6 +222,11 @@
         font-size: 5rem;
     }
 
+    .weather-icon {
+        width: 5rem;
+        height: 5rem;
+    }
+
     .main-weather-icon {
         width: 15rem;
         height: 15rem;
@@ -261,10 +266,5 @@
         width: 5rem;
         height: 5rem;
         font-size: 3rem;
-    }
-
-    .weather-icon {
-        width: 5rem;
-        height: 5rem;
     }
 }
