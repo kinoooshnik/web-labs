@@ -170,6 +170,10 @@
         font-size: 2rem;
     }
 
+    html{
+        font-size: 1.5vw;
+    }
+
     .section-header-first {
         grid-template-columns: repeat(3, 1fr);
         grid-template-areas: "header-title header-title header-refresh-button";
