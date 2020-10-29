@@ -4,7 +4,7 @@ const DEFAULT_CITY = {
         longitude: 30.26
     }
 }
-const WEATHER_API_URL = "http://api.weatherapi.com/v1/current.json"
+const WEATHER_API_URL = "https://api.weatherapi.com/v1/current.json"
 const WEATHER_API_KEY = "621a48e10fad43b3849183044202810"
 
 const BAD_REQUEST = "Bad request"
