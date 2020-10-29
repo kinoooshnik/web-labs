@@ -157,7 +157,6 @@ async function addCity(name, id = null) {
 
         selectedCities.appendChild(selectedCity);
 
-
         document.getElementById(id).querySelector(".close-button").addEventListener("click", function () {
             document.getElementById(id).remove()
             deleteSelectedCityFromStorage(id)
@@ -189,7 +188,6 @@ function addButtonListener() {
     newCityInput.value = "";
     addCity(value);
 }
-
 
 document.querySelector(".header-refresh-button").onclick = refreshGeo;
 document.querySelector(".circle-button.plus-button").onclick = addButtonListener;
