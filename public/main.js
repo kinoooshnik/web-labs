@@ -4,15 +4,12 @@ const DEFAULT_CITY = {
         longitude: 30.26
     }
 }
-const WEATHER_API_URL = "https://api.weatherapi.com/v1/current.json"
-const WEATHER_API_KEY = "621a48e10fad43b3849183044202810"
-
-const BAD_REQUEST = "Bad request"
-const BAD_REQUEST_MESSAGE = "По такому запросу городов не найдено."
+const API_URL = "http://localhost:3000"
 
 const FAILED_FETCH_MESSAGE = "Что-то пошло не так. Повторите попытку позже."
 
-const SELECTED_CITIES_STORAGE_NAME = "selectedCities"
+class RequestError extends Error {
+}
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -23,7 +20,7 @@ function getLocation() {
 }
 
 function setMainWeather(position) {
-    getWeatherFor(`${position.coords.latitude},${position.coords.longitude}`).then(
+    getWeatherForCor(position.coords.latitude, position.coords.longitude).then(
         setMainCity,
         err => {
             if (err instanceof TypeError) {
@@ -35,36 +32,25 @@ function setMainWeather(position) {
     );
 }
 
-async function getWeatherFor(q) {
-    const response = await fetch(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=${q}`);
+async function getWeatherForCity(name) {
+    const response = await fetch(`${API_URL}/weather/city?&q=${name}`);
+    let json = await response.json()
     if (response.status === 400) {
-        throw new Error(BAD_REQUEST)
+        throw new RequestError(json["message"])
     }
-    return await response.json();
+    return json;
 }
 
-function responseToObj(jsonResponse) {
-    return {
-        placeName: jsonResponse.location.name,
-        coords: {
-            lat: jsonResponse.location.lat,
-            lon: jsonResponse.location.lon,
-            str: `[${jsonResponse.location.lat}, ${jsonResponse.location.lon}]`
-        },
-        temp: jsonResponse.current.temp_c + "°C",
-        wind: jsonResponse.current.wind_kph + " kp/h",
-        cloud: jsonResponse.current.cloud + "%",
-        pressure: jsonResponse.current.pressure_mb + " hpa",
-        humidity: jsonResponse.current.humidity + "%",
-        img: {
-            alt: jsonResponse.current.condition.text,
-            url: jsonResponse.current.condition.icon.replace(/64x64/, "128x128"),
-        }
+async function getWeatherForCor(lat, lon) {
+    const response = await fetch(`${API_URL}/weather/coordinates?&lat=${lat}&lon=${lon}`);
+    let json = await response.json()
+    if (response.status === 400) {
+        throw new RequestError(json["message"])
     }
+    return json;
 }
 
-function setMainCity(jsonResponse) {
-    const weather = responseToObj(jsonResponse)
+function setMainCity(weather) {
 
     let mainCityLoader = document.getElementById("main-city-loader");
     let mainCityTemplate = document.getElementById("main-city-template");
@@ -98,38 +84,35 @@ function refreshGeo() {
     getLocation()
 }
 
-function addSelectedCityInStorage(cityName, id) {
-    let cities = localStorage.getItem(SELECTED_CITIES_STORAGE_NAME)
-    if (cities == null) {
-        cities = {}
-    } else {
-        cities = JSON.parse(cities)
+async function addSelectedCityInStorage(cityName, id) {
+    let response = await fetch(`${API_URL}/favourites`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json;charset=utf-8'},
+        body: JSON.stringify({"name": cityName})
+    });
+    let json = await response.json()
+    if (response.status === 400) {
+        throw new Error(json["message"])
     }
-    cities[id] = cityName
-    localStorage.setItem(SELECTED_CITIES_STORAGE_NAME, JSON.stringify(cities))
+    return json;
 }
 
-function getAllSelectedCityFromStorage() {
-    let cities = localStorage.getItem(SELECTED_CITIES_STORAGE_NAME)
-    if (cities == null) {
-        cities = {}
-    } else {
-        cities = JSON.parse(cities)
+async function getAllSelectedCityFromStorage() {
+    const response = await fetch(`${API_URL}/favourites`);
+    let json = await response.json()
+    if (response.status === 400) {
+        throw new Error(json["message"])
     }
-    return cities
+    return json;
 }
 
-function deleteSelectedCityFromStorage(id) {
-    let cities = localStorage.getItem(SELECTED_CITIES_STORAGE_NAME);
-    if (cities == null) {
-        cities = {}
-    } else {
-        cities = JSON.parse(cities)
+async function deleteSelectedCityFromStorage(id) {
+    let response = await fetch(`${API_URL}/favourites?id=${id}`, {method: 'DELETE'});
+    let json = await response.json()
+    if (response.status === 400) {
+        throw new Error(json["message"])
     }
-    if (id in cities) {
-        delete cities[id];
-    }
-    localStorage.setItem(SELECTED_CITIES_STORAGE_NAME, JSON.stringify(cities))
+    return json;
 }
 
 async function addCity(name, id = null) {
@@ -141,29 +124,28 @@ async function addCity(name, id = null) {
 
     selectedCities.appendChild(loader)
     try {
-        const jsonResponse = await getWeatherFor(name);
+        const weather = await getWeatherForCity(name);
 
-        const weather = responseToObj(jsonResponse);
         let selectedCityTemplate = document.getElementById("selected-city-template");
 
         let selectedCity = selectedCityTemplate.content.cloneNode(true);
         selectedCity = fillCityNode(selectedCity, weather)
 
         if (id == null) {
-            id = `f${(~~(Math.random() * 1e8)).toString(16)}`;
-            addSelectedCityInStorage(weather.placeName, id);
+            cityObj = await addSelectedCityInStorage(weather.placeName, id);
+            id = cityObj._id;
         }
         selectedCity.querySelector(".selected-city").id = id;
 
         selectedCities.appendChild(selectedCity);
 
-        document.getElementById(id).querySelector(".close-button").addEventListener("click", function () {
+        document.getElementById(id).querySelector(".close-button").addEventListener("click", async () => {
             document.getElementById(id).remove()
-            deleteSelectedCityFromStorage(id)
+            await deleteSelectedCityFromStorage(id)
         })
     } catch (e) {
-        if (e.message === BAD_REQUEST) {
-            alert(BAD_REQUEST_MESSAGE)
+        if (e instanceof RequestError) {
+            alert(e.message)
         } else if (e instanceof TypeError) {
             alert(FAILED_FETCH_MESSAGE)
         } else {
@@ -174,11 +156,11 @@ async function addCity(name, id = null) {
 
 }
 
-function restoreSelectedCities() {
-    const cities = getAllSelectedCityFromStorage();
+async function restoreSelectedCities() {
+    const cities = await getAllSelectedCityFromStorage();
     let prom = new Promise(resolve => resolve());
-    for (let [id, cityName] of Object.entries(cities)) {
-        prom = prom.then(() => addCity(cityName, id));
+    for (let obj of cities) {
+        prom = prom.then(() => addCity(obj.name, obj._id));
     }
 }
 
@@ -194,4 +176,3 @@ document.querySelector(".circle-button.plus-button").onclick = addButtonListener
 
 getLocation();
 restoreSelectedCities()
-
