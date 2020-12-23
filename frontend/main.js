@@ -91,8 +91,8 @@ async function addSelectedCityInStorage(cityName, id) {
         body: JSON.stringify({"name": cityName})
     });
     let json = await response.json()
-    if (response.status === 400) {
-        throw new Error(json["message"])
+    if (response.status !== 200) {
+        throw new RequestError(json["message"])
     }
     return json;
 }
@@ -100,8 +100,8 @@ async function addSelectedCityInStorage(cityName, id) {
 async function getAllSelectedCityFromStorage() {
     const response = await fetch(`${API_URL}/favourites`);
     let json = await response.json()
-    if (response.status === 400) {
-        throw new Error(json["message"])
+    if (response.status !== 200) {
+        throw new RequestError(json["message"])
     }
     return json;
 }
@@ -109,8 +109,8 @@ async function getAllSelectedCityFromStorage() {
 async function deleteSelectedCityFromStorage(id) {
     let response = await fetch(`${API_URL}/favourites?id=${id}`, {method: 'DELETE'});
     let json = await response.json()
-    if (response.status === 400) {
-        throw new Error(json["message"])
+    if (response.status !== 200) {
+        throw new RequestError(json["message"])
     }
     return json;
 }
@@ -176,3 +176,8 @@ document.querySelector(".circle-button.plus-button").onclick = addButtonListener
 
 getLocation();
 restoreSelectedCities()
+    .catch(err => {
+        if (err instanceof RequestError) {
+            alert(err.message)
+        }
+    })
