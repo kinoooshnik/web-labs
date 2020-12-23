@@ -8,6 +8,7 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
+    "fetch-mock": "^9.11.0",
     "mocha": "^8.2.1",
     "mock-mongoose": "^8.0.1-a",
     "nodemon": "^2.0.6",
