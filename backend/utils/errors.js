@@ -5,17 +5,21 @@ class GeneralError extends Error {
     }
 
     getCode() {
-        if (this instanceof BadRequest) {
-            return 400;
-        } if (this instanceof NotFound) {
-            return 404;
-        }
         return 500;
     }
 }
 
-class BadRequest extends GeneralError { }
-class NotFound extends GeneralError { }
+class BadRequest extends GeneralError {
+    getCode() {
+        return 400;
+    }
+}
+
+class NotFound extends GeneralError {
+    getCode() {
+        return 404;
+    }
+}
 
 module.exports = {
     GeneralError,
