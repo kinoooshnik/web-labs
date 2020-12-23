@@ -1,5 +1,5 @@
 const {BadRequest} = require('./utils/errors');
-const {City} = require('./models');
+const {City} = require('./db');
 const {getWeatherFor, responseToObj} = require("./utils/fetch");
 const catchWrap = require("./utils/wrappers");
 
