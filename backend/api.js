@@ -28,7 +28,7 @@ function api(app) {
     app.get("/favourites", catchWrap((req, res, next) => {
         City.find({}, (err, cities) => {
             if (err) next(err);
-            res.json(cities)
+            else res.json(cities)
         });
     }));
 
@@ -39,7 +39,7 @@ function api(app) {
 
         city.save((err) => {
             if (err) next(err);
-            res.json(city);
+            else res.json(city);
         });
     }));
 
@@ -49,7 +49,7 @@ function api(app) {
 
         City.findByIdAndDelete(id, (err, user) => {
             if (err) next(err);
-            res.json(user);
+            else res.json(user);
         });
     }));
 }
