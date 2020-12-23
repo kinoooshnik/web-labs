@@ -11,7 +11,7 @@ const handleErrors = require('../backend/middleware/handleErrors');
 const api = require("../backend/api");
 const {City} = require("../backend/db")
 const {WEATHER_API_URL, WEATHER_API_KEY} = require("../backend/consts");
-const {WEATHER_API_MOSCOW_RESPONSE} = require("./responses");
+const RESPONSES = require("./responses");
 
 const app = express();
 app.use(express.static("frontend"));
@@ -38,34 +38,55 @@ describe('Backend Tests', () => {
 
     describe('GET /weather/city', () => {
         before(async () => {
-            fetchMock.get(encodeURI(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=Москва`), WEATHER_API_MOSCOW_RESPONSE);
+            fetchMock.get(encodeURI(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=Москва`), RESPONSES["WEATHER_API_MOSCOW_RESPONSE"]);
         });
         after(async () => {
             fetchMock.reset();
         })
         it('Correct response', async () => {
             const res = await request(app)
-                .get(`/weather/city?`)
+                .get(encodeURI("/weather/city?q=Москва"))
                 .expect(200)
-            assert.equal(res.body, "Москва")
+            assert.deepEqual(res.body, RESPONSES["APP_API_GET_WEATHER_CITY_RESPONSE"])
         });
-        it('Incorrect response: missing required fields - q', (done) => {
-            assert.equal(1, 1);
-            done();
+        it('Incorrect response: missing required fields - q', async () => {
+            const res = await request(app)
+                .get(encodeURI("/weather/city"))
+                .expect(400)
+            assert.deepEqual(res.body, {status: "error", message: "Missing required fields: q"})
         });
     });
     describe('GET /weather/coordinates', () => {
-        it('Correct response', (done) => {
-            assert.equal(1, 1);
-            done();
+        before(async () => {
+            console.log(encodeURI(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=55.75,37.62`))
+            fetchMock.get(encodeURI(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=55.75,37.62`), RESPONSES["WEATHER_API_MOSCOW_RESPONSE"]);
         });
-        it('Incorrect response: missing required fields - lat', (done) => {
-            assert.equal(1, 1);
-            done();
+        after(async () => {
+            fetchMock.reset();
+        })
+        it('Correct response', async () => {
+            const res = await request(app)
+                .get(encodeURI("/weather/coordinates?lat=55.75&lon=37.62"))
+                .expect(200)
+            assert.deepEqual(res.body, RESPONSES["APP_API_GET_WEATHER_CITY_RESPONSE"])
         });
-        it('Incorrect response: missing required fields - lon', (done) => {
-            assert.equal(1, 1);
-            done();
+        it('Incorrect response: missing required fields - lat', async () => {
+            const res = await request(app)
+                .get(encodeURI("/weather/coordinates?lon=37.62"))
+                .expect(400)
+            assert.deepEqual(res.body, {status: "error", message: "Missing required fields: lat or lon"})
+        });
+        it('Incorrect response: missing required fields - lon', async () => {
+            const res = await request(app)
+                .get(encodeURI("/weather/coordinates?lat=55.75"))
+                .expect(400)
+            assert.deepEqual(res.body, {status: "error", message: "Missing required fields: lat or lon"})
+        });
+        it('Incorrect response: missing required fields - lat and lon', async () => {
+            const res = await request(app)
+                .get(encodeURI("/weather/coordinates"))
+                .expect(400)
+            assert.deepEqual(res.body, {status: "error", message: "Missing required fields: lat or lon"})
         });
     });
     describe('GET /favourites', () => {

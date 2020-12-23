@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+require("node-fetch");
 const {BadRequest} = require('./errors');
 const {WEATHER_API_URL, WEATHER_API_KEY} = require("../consts");
 
