@@ -12,6 +12,9 @@ const api = require("../backend/api");
 const {City} = require("../backend/db")
 const {WEATHER_API_URL, WEATHER_API_KEY} = require("../backend/consts");
 const RESPONSES = require("./responses");
+const catchWrap = require("../backend/utils/wrappers");
+const {getWeatherFor, responseToObj} = require("../backend/utils/fetch");
+const {BadRequest} = require("../backend/utils/errors");
 
 const app = express();
 app.use(express.static("frontend"));
@@ -58,7 +61,6 @@ describe('Backend Tests', () => {
     });
     describe('GET /weather/coordinates', () => {
         before(async () => {
-            console.log(encodeURI(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=55.75,37.62`))
             fetchMock.get(encodeURI(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=55.75,37.62`), RESPONSES["WEATHER_API_MOSCOW_RESPONSE"]);
         });
         after(async () => {
@@ -126,6 +128,38 @@ describe('Backend Tests', () => {
                 .delete("/favourites")
                 .expect(400)
             assert.deepEqual(res.body, {status: "error", message: "Missing required fields: id"})
+        });
+    });
+    describe('WRAPPERS', () => {
+        it('catchWrap', async () => {
+            function test(req, res, next) {
+                throw new Error();
+            }
+            test = catchWrap(test);
+            let check = false;
+            await test(() => {}, () => {}, () => {check = true})
+            assert.equal(check, true);
+        });
+    });
+    describe('FETCH', () => {
+        it('responseToObj', async () => {
+            assert.deepEqual(responseToObj(RESPONSES["WEATHER_API_MOSCOW_RESPONSE"]), RESPONSES["APP_API_GET_WEATHER_CITY_RESPONSE"])
+        });
+        it('getWeatherFor: correct result', async () => {
+            fetchMock.get(encodeURI(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=Москва`), RESPONSES["WEATHER_API_MOSCOW_RESPONSE"], {overwriteRoutes: true});
+            const res = await getWeatherFor("Москва");
+            assert.deepEqual(res, RESPONSES["WEATHER_API_MOSCOW_RESPONSE"]);
+        });
+        it('getWeatherFor: throw exception', async () => {
+            fetchMock.get(encodeURI(`${WEATHER_API_URL}?key=${WEATHER_API_KEY}&q=Москва`), {
+                status: 400,
+                body: RESPONSES["APP_API_ERROR_RESPONSE"]
+            }, {overwriteRoutes: true});
+            try {
+                await getWeatherFor("Москва");
+            } catch (e) {
+                assert.equal(e instanceof BadRequest, true)
+            }
         });
     });
 });
