@@ -33,7 +33,7 @@ function setMainWeather(position) {
 }
 
 async function getWeatherForCity(name) {
-    const response = await fetch(`${API_URL}/weather/city?&q=${name}`);
+    const response = await fetch(`${API_URL}/weather/city?q=${name}`);
     let json = await response.json()
     if (response.status === 400) {
         throw new RequestError(json["message"])
@@ -42,7 +42,7 @@ async function getWeatherForCity(name) {
 }
 
 async function getWeatherForCor(lat, lon) {
-    const response = await fetch(`${API_URL}/weather/coordinates?&lat=${lat}&lon=${lon}`);
+    const response = await fetch(`${API_URL}/weather/coordinates?lat=${lat}&lon=${lon}`);
     let json = await response.json()
     if (response.status === 400) {
         throw new RequestError(json["message"])
@@ -181,3 +181,12 @@ restoreSelectedCities()
             alert(err.message)
         }
     })
+
+module.exports = {
+    getWeatherForCity,
+    getWeatherForCor,
+    addSelectedCityInStorage,
+    getAllSelectedCityFromStorage,
+    deleteSelectedCityFromStorage,
+    fillCityNode,
+};
