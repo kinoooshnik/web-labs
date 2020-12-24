@@ -84,7 +84,7 @@ function refreshGeo() {
     getLocation()
 }
 
-async function addSelectedCityInStorage(cityName, id) {
+async function addSelectedCityInStorage(cityName) {
     let response = await fetch(`${API_URL}/favourites`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'},
@@ -188,5 +188,4 @@ module.exports = {
     addSelectedCityInStorage,
     getAllSelectedCityFromStorage,
     deleteSelectedCityFromStorage,
-    fillCityNode,
 };
