@@ -2,10 +2,12 @@ const WEATHER_API_MOSCOW_RESPONSE = {"location":{"name":"Москва","region":
 const APP_API_GET_WEATHER_CITY_RESPONSE = {cloud: "100%", coords: {lat: 55.75, lon: 37.62, str: "[55.75, 37.62]"}, humidity: "85%", img: {alt: "Overcast", url: "//cdn.weatherapi.com/weather/128x128/night/122.png",}, placeName: "Москва", pressure: "1018 hpa", temp: "-8°C", wind: "22 kp/h",}
 const APP_API_GET_FAVOURITES_RESPONSE = [APP_API_GET_WEATHER_CITY_RESPONSE]
 const APP_API_POST_FAVOURITES_RESPONSE = {_id: "5fe3eb2e4f961c413c234fb6", name: "Москва"}
+const APP_API_ERROR_RESPONSE = {status: "error", message: "Some error"}
 
 module.exports = {
     WEATHER_API_MOSCOW_RESPONSE: WEATHER_API_MOSCOW_RESPONSE,
     APP_API_GET_WEATHER_CITY_RESPONSE: APP_API_GET_WEATHER_CITY_RESPONSE,
     APP_API_GET_FAVOURITES_RESPONSE: APP_API_GET_FAVOURITES_RESPONSE,
     APP_API_POST_FAVOURITES_RESPONSE: APP_API_POST_FAVOURITES_RESPONSE,
+    APP_API_ERROR_RESPONSE: APP_API_ERROR_RESPONSE,
 };
