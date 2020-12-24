@@ -132,7 +132,7 @@ async function addCity(name, id = null) {
         selectedCity = fillCityNode(selectedCity, weather)
 
         if (id == null) {
-            cityObj = await addSelectedCityInStorage(weather.placeName, id);
+            cityObj = await addSelectedCityInStorage(weather.placeName);
             id = cityObj._id;
         }
         selectedCity.querySelector(".selected-city").id = id;
